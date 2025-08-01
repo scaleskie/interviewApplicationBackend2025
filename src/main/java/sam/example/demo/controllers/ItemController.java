@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sam.example.demo.Item;
 import sam.example.demo.repositories.ItemRepository;
+import sam.example.demo.services.ItemService;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,34 +13,31 @@ import java.util.Optional;
 @RequestMapping("/item")
 public class ItemController {
 
-    @Autowired
-    ItemRepository itemRepository;
+    private ItemService itemService;
+
+    public ItemController (ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     @GetMapping("/allItems")
     @ResponseBody
     public List<Item> listAll() {
-        return itemRepository.findAll();
+        return itemService.listAll();
     }
 
     @GetMapping("/getItem/{id}")
     Optional<Item> getItem(@PathVariable Integer id) {
-        return itemRepository.findById(id);
+        return itemService.findById(id);
     }
 
     @DeleteMapping("/deleteItem/{id}")
     void deleteItem(@PathVariable Integer id) {
-        itemRepository.deleteById(id);
+        itemService.deleteItem(id);
     }
     @PostMapping("/updateItem")
+
     Item updateItem(@RequestBody Item updatedItem) {
-        return itemRepository.findById(updatedItem.getId())
-                .map(item -> {
-                    return itemRepository.save(updatedItem);
-                })
-                .orElseGet(() -> {
-                    updatedItem.setId(updatedItem.getId());
-                    return itemRepository.save(updatedItem);
-                });
+        return itemService.updateItem(updatedItem);
     }
 
 }
