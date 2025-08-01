@@ -21,7 +21,6 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
 		String sql = "INSERT INTO items (id, code, name, category, quantity) VALUES" +
 				"(1, 'TESLA', 'Tesla', 'Vehicle', '2'), " +
 				"(2, 'FORD', 'Ford', 'Vehicle', '3')," +
@@ -29,7 +28,6 @@ public class DemoApplication implements CommandLineRunner {
 				"(4, 'CIVIC', 'Civic', 'Vehicle', '9')," +
 				"(5, 'KIA', 'Kia', 'Vehicle', '3')," +
 				"(6, 'TOYOTA', 'Toyota', 'Vehicle', '1')";
-
 
 		int rows = jdbcTemplate.update(sql);
 		if (rows > 0) {
@@ -44,7 +42,6 @@ public class DemoApplication implements CommandLineRunner {
 				"(5, 'Todd', 'BIRTHDAY')," +
 				"(6, 'Fred', 'WEDDING')," +
 				"(7, 'Joe', 'GRADUATION')";
-
 
 		int eventRows = jdbcTemplate.update(eventSQL);
 
